@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-    before_action :find message, only: [:create, :edit, :update, :destroy]
-    before_action :find comment, only: [:edit, :update, :destroy]
+    before_action :find_message, only: [:create, :edit, :update, :destroy]
+    before_action :find_comment, only: [:edit, :update, :destroy]
     before_action :authenticate_user!
+
 
     def create
         @comment = @message.comments.create(comment_params)
@@ -23,6 +24,7 @@ class CommentsController < ApplicationController
         else
             render 'edit'
         end
+    end
 
     def destroy
         @comment.destroy
@@ -43,3 +45,4 @@ class CommentsController < ApplicationController
     def find_comment
         @comment = @message.comment.find(params[:id])
     end
+end
